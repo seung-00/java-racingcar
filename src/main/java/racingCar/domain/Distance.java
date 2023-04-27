@@ -1,6 +1,6 @@
 package racingCar.domain;
 
-public class Distance {
+public class Distance implements Comparable<Distance> {
 	private final int amount;
 
 	public int getAmount() {
@@ -13,6 +13,10 @@ public class Distance {
 
 	public static Distance from(int amount) {
 		return new Distance(amount);
+	}
+
+	public Distance add(Distance distance) {
+		return new Distance(distance.amount + 1);
 	}
 
 	public static Distance create() {
@@ -31,5 +35,10 @@ public class Distance {
 	@Override
 	public int hashCode() {
 		return amount;
+	}
+
+	@Override
+	public int compareTo(Distance otherDistance) {
+		return Integer.compare(this.amount, otherDistance.amount);
 	}
 }

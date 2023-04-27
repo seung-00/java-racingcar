@@ -2,7 +2,7 @@ package racingCar.domain;
 
 import java.util.Random;
 
-public class Car {
+public class Car implements Comparable<Car> {
 	public static final int ZERO = 0;
 
 	public static final int MAX_POWER = 10;
@@ -16,10 +16,6 @@ public class Car {
 	private Distance distance;
 
 	private int power;
-
-	public int getDistanceAmount() {
-		return distance.getAmount();
-	}
 
 	public Car(String name, int power, Distance distance) {
 		this.name = name;
@@ -53,7 +49,17 @@ public class Car {
 			return;
 		}
 
-		distance = Distance.from(distance.getAmount() + 1);
+		distance = distance.add(Distance.from(1));
+	}
+
+	@Override
+	public int compareTo(Car otherCar) {
+		return this.distance.compareTo(otherCar.distance);
+	}
+
+
+	public boolean isSameDistance(Car otherCar) {
+		return this.distance.equals(otherCar.distance);
 	}
 
 	public void startEngine() {

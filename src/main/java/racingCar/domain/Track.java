@@ -40,17 +40,17 @@ public class Track {
 	}
 
 	public List<Car> findWinners() {
-		int maxDistance = findMaxDistance();
+		Car maxDistanceCar = findCarWithMaxDistance();
 
 		return carList.stream()
-			.filter(car -> car.getDistanceAmount() == maxDistance)
+			.filter(car -> car.isSameDistance(maxDistanceCar))
 			.collect(Collectors.toList());
 	}
 
-	private int findMaxDistance() {
+	private Car findCarWithMaxDistance() {
 		return carList.stream()
-			.mapToInt(Car::getDistanceAmount)
-			.max()
-			.orElse(0);
+			.sorted()
+			.findFirst()
+			.orElseThrow(() -> new IllegalArgumentException("자동차가 존재하지 않습니다."));
 	}
 }
